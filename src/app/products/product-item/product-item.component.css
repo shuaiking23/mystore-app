@@ -8,6 +8,8 @@
 
 .product-container {
     margin-top: 64px;
+    margin-left: 32px;
+    margin-right: 32px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;

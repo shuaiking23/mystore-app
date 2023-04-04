@@ -3,6 +3,8 @@
         <h1> MyStore </h1>
     </div>
     <div>
-        <div><a routerLink="/">Product List</a> | <a routerLink="cart/">Cart 🛒</a></div>
+        <div>
+            <a [routerLink]="['/']">Product List</a> | <a [routerLink]="['cart/']">Cart 🛒</a>
+        </div>
     </div>
 </header>

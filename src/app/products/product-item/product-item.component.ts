@@ -10,10 +10,16 @@ import { ProductService } from '../../services/product.service';
 })
 export class ProductItemComponent implements OnInit {
     @Input() product!: Product;
-    productCount: string[] = ['1', '2', '3', '4', '5'];
+    productCount: number[] = Array.from({length: 5}, (_, i) => i + 1);
+    quantity: number = 1;
 
     constructor(private productService: ProductService) {}
 
     ngOnInit(): void {}
+
+    addToCart(product: Product): void {
+        product.quantity = this.quantity as number;
+        this.productService.addToCart(product);
+    }
 
 }

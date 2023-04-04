@@ -1,16 +1,16 @@
 <div class="product-container">
-    <img class="product-image" src="{{ product.url }}">
+    <a [routerLink]="['/product', product.id]"><img class="product-image" src="{{ product.url }}"></a>
     <div><b>{{ product.name }}</b></div>
     <div>${{product.price}}</div>
-    <form>
-		<select class="select-input form-select" aria-label="Default select example">
+    <form (ngSubmit)="addToCart(product)">
+		<select class="select-input form-select" [(ngModel)]="quantity" name="quantity">
 			<option
 				*ngFor="let item of productCount" 
-				[value]="item"
-				[selected]="item === '1'">
+				[ngValue]=item
+				[selected]="item === 1">
 				{{ item }}
 			</option>
 		</select>
-		<input type="submit" value="Add to Cart" class="btn btn-primary" />
+		<input class="btn btn-primary" type="submit" value="Add to Cart" />
     </form>
 </div>

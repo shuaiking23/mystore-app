@@ -17,15 +17,24 @@ export class ProductService {
         return this.http.get<Product[]>(this.apiUrl);
     }
 
-    getProduct(pid: number): Observable<Product> | null {
-        const found: Observable<Product> = this.getProducts().pipe(
+    getProduct(pid: number): Observable<Product> {
+        return this.getProducts().pipe(
             map((products: Product[]) => products.find(product => product.id == pid)!)
         );
-        return found ? found : null;
+    }
+
+    getCart(): Product[] | [] {
+        const cartItems = this.storage.getItem('cart');
+        return cartItems? JSON.parse(cartItems) : [];
+    }
+
+    setCart(cartItems: Product[] | []): void {
+        this.storage.setItem('cart', JSON.stringify(cartItems));
+        console.log(this.storage.getItem('cart'));
     }
 
     addToCart(product: Product): void {
-        var cartItems: Product[] = JSON.parse(this.storage.getItem('cart') as string) || [];
+        var cartItems: Product[] = this.getCart();
         var foundIndex = cartItems.findIndex(item => item.id == product.id);
         if (foundIndex >= 0 && product.quantity) {
             cartItems[foundIndex].quantity = cartItems[foundIndex].quantity ? 
@@ -39,21 +48,29 @@ export class ProductService {
         console.log(this.storage.getItem('cart'));
     }
 
-    getCart(): Product[] | [] {
-        const cartItems = this.storage.getItem('cart');
-        return cartItems? JSON.parse(cartItems) : [];
-    }
-
-    removeFromCart(pid: number): void {
-        var cartItems: Product[] = JSON.parse(this.storage.getItem('cart') as string) || [];
-        var foundIndex = cartItems.findIndex(item => item.id == pid);
-        if (foundIndex >= 0) {
-            delete cartItems[foundIndex];
-            this.storage.setItem('cart', JSON.stringify(cartItems));
+    removeFromCart(id: number): void {
+        var cartItems: Product[] = this.getCart();
+        if (id >= 0 && id < cartItems.length) {
+            cartItems.splice(id, 1);
+            console.log(cartItems);
+            this.setCart(cartItems);
         }
     }
 
     emptyCart(): void {
         this.storage.clear();
+    }
+
+    updateQuantity(id: number, quantity: number): void {
+        var cartItems: Product[] = this.getCart();
+        if (id >= 0 && id < cartItems.length) {
+            cartItems[id].quantity = quantity;
+        }
+        this.setCart(cartItems);
+    }
+
+    setCustomerInfo(name: string, amount: number) {
+        const cust = {"name": name, "amount": amount};
+        this.storage.setItem('customer', JSON.stringify(cust));
     }
 }

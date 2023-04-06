@@ -1,1 +1,43 @@
-<p>product-item-detail works!</p>
+<ng-container
+    *ngIf="product; then productDetail; else errorMessage">
+</ng-container>
+
+<ng-template #productDetail>
+    <div class="detail-container">
+        <div class="detail-item">
+            <img src="{{ product.url }}">
+        </div>
+        <div class="detail-item">
+            <div><h1>{{ product.name }}</h1></div>
+            <div>{{product.description}}</div>
+            <div>${{product.price}}</div>
+            <form (ngSubmit)="addToCart(product)">
+                <select class="select-input form-select" [(ngModel)]="quantity" name="quantity">
+                    <option
+                        *ngFor="let item of productCount" 
+                        [ngValue]=item
+                        [selected]="item === 1">
+                        {{ item }}
+                    </option>
+                </select>
+                <input class="btn btn-primary" type="submit" value="Add to Cart" />
+            </form>
+            <div>
+                <a class="back-link" [routerLink]="['/']">Back to product list</a>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #errorMessage>
+    <div class="detail-container">
+        <div class="detail-item">
+            <div>
+                Unable to find product.
+            </div>
+            <div>
+                <a class="back-link" [routerLink]="['/']">Back to product list</a>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,1 +1,71 @@
-<p>cart works!</p>
+<ng-container
+	*ngIf="cartItems.length; then showCart; else errorMessage">
+</ng-container>
+
+<ng-template #showCart>
+	<div class="cart-container">
+		<div class="cart-panel">
+			<div *ngFor="let cartItem of cartItems; let i = index" class="cart-item">
+				<img src="{{cartItem.url}}">
+				<div class="cart-item-details">
+					<div class="form-margin"><b>{{ cartItem.name }}</b></div>
+					<div class="form-margin">${{ cartItem.price}}</div>
+					<div class="form-margin"></div>
+					<div><label for="exampleInput" class="form-label">Amount:</label></div>
+					<div class="input-group">
+						<input class="number-input form-control" type="number" min="1" max="99"
+						value="{{ cartItem.quantity }}" 
+						onkeydown="return false" 
+						(input)="updateQuantity(i, $event)" /> 
+						<button class="btn btn-secondary" type="button" (click)="removeFromCart(i)">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
+								fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+								<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+								<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div>
+				<button class="btn btn-secondary form-margin" type="button" (click)="clearCart()">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
+						fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+						<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+						<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+					</svg> Clear All
+				</button>
+				<h2>Total: ${{totalPrice}}</h2>
+			</div>
+		</div>
+		<div class="cart-panel">
+			<form class="form-margin" #f="ngForm">
+				<div><label for="fullName" class="form-label">Full name</label></div>
+				<input class="form-control form-margin" type="text" name="fullName" minlength="3" 
+					placeholder="(minimum 3 characters)" required [(ngModel)]="fullName" />
+				<div><label for="address" class="form-label">Address</label></div>
+				<input class="form-control form-margin" type="text" name="address" minlength="6" 
+					placeholder="(minimum 6 characters)" required [(ngModel)]="address" />
+				<div><label for="cc" class="form-label">Credit card number</label></div>
+				<input class="form-control form-margin" type="type" name="cc" 
+					minlength="16" maxlength="16" inputmode="numeric" pattern="[0-9]*" 
+					placeholder="(16-digit number)"
+					onkeypress="return !(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57))"
+					required [(ngModel)]="cc"/>
+
+				<div style="color: grey; font-size: 12px;" class="form-margin">We'll never share your payment details with anyone else.</div>
+
+				<button [disabled]="f.invalid" class="btn btn-primary" type="button">Submit</button>
+			</form>
+		</div>
+	</div>
+
+</ng-template>
+
+<ng-template #errorMessage>
+	<div class="empty-cart-message">
+		<div>
+			Cart is empty! <a [routerLink]="['/']">Back to product list</a>
+		</div>
+	</div>
+</ng-template>

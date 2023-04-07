@@ -39,7 +39,7 @@
 			</div>
 		</div>
 		<div class="cart-panel">
-			<form class="form-margin" #f="ngForm">
+			<form class="form-margin" #f="ngForm" (ngSubmit)="onSubmit()">
 				<div><label for="fullName" class="form-label">Full name</label></div>
 				<input class="form-control form-margin" type="text" name="fullName" minlength="3" 
 					placeholder="(minimum 3 characters)" required [(ngModel)]="fullName" />
@@ -55,7 +55,7 @@
 
 				<div style="color: grey; font-size: 12px;" class="form-margin">We'll never share your payment details with anyone else.</div>
 
-				<button [disabled]="f.invalid" class="btn btn-primary" type="button">Submit</button>
+				<button [disabled]="f.invalid" class="btn btn-primary" type="submit">Submit</button>
 			</form>
 		</div>
 	</div>

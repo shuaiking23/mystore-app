@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
 import { Product } from '../models/product';
+import { Order } from '../models/order';
 
 @Injectable({
     providedIn: 'root'
@@ -44,20 +45,20 @@ export class ProductService {
         else {
             cartItems.push(product);
         }
-        this.storage.setItem('cart', JSON.stringify(cartItems));
-        console.log(this.storage.getItem('cart'));
+        this.setCart(cartItems);
+        alert("Item added to cart.");
     }
 
     removeFromCart(id: number): void {
         var cartItems: Product[] = this.getCart();
         if (id >= 0 && id < cartItems.length) {
             cartItems.splice(id, 1);
-            console.log(cartItems);
             this.setCart(cartItems);
+            alert("Item removed to cart.");
         }
     }
 
-    emptyCart(): void {
+    emptyStorage(): void {
         this.storage.clear();
     }
 
@@ -69,8 +70,14 @@ export class ProductService {
         this.setCart(cartItems);
     }
 
-    setCustomerInfo(name: string, amount: number) {
-        const cust = {"name": name, "amount": amount};
-        this.storage.setItem('customer', JSON.stringify(cust));
+    setOrder(order: Order) {
+        this.storage.setItem('order', JSON.stringify(order));
+        console.log(this.storage.getItem('order'));
+    }
+
+    getOrder(): Order | null {
+        const order = this.storage.getItem('order');
+        if (order != null) this.emptyStorage();
+        return order? JSON.parse(order) : null;
     }
 }

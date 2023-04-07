@@ -1,1 +1,9 @@
-<p>confirmation works!</p>
+<div *ngIf="order != null" class="confirmation-container">
+	<div class="confirmation-items"> 
+		<div class="confirmation-header confirmation-item"><h1><b>Success!</b> 🎉</h1></div>
+		<div class="confirmation-item">Thank you, <b>{{order.fullName}}</b>!</div>
+		<div class="confirmation-item">Your <b>${{order.totalPrice}}</b> order is confirmed!</div>
+		<div class="confirmation-item">Please allow 1-3 business day(s) for shipping.</div>
+		<a class="btn btn-primary" [routerLink]="['/']">Back to product list</a>
+	</div>
+</div>

@@ -1,27 +1,49 @@
 # MystoreApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
+This project was generated with [Angular CLI]
+
+MyStore is a simple product order application.
+
+## Navigation
+
+### Product List
+
+[/]
+
+View a list of products
+Click into a product to view more details
+Add product to cart
+
+### Product Details
+
+[/product/:id]
+
+Provide more description of the selected product
+Add prouduct to cart
+
+### Cart
+
+[/cart]
+
+View a list of products added to cart
+Alter the quantity of products in cart
+View Total price of products in cart
+Remove product from cart
+Clear cart
+Fill in order information and submit order
+
+### Success
+
+[/success]
+
+Confirmation of successful order
+
+## Specification
+
+Angular CLI: 15.2.4
+Node: 18.15.0 
+Package Manager: npm 9.6.3
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.

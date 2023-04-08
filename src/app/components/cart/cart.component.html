@@ -50,7 +50,7 @@
 				<input class="form-control form-margin" type="type" name="cc" 
 					minlength="16" maxlength="16" inputmode="numeric" pattern="[0-9]*" 
 					placeholder="(16-digit number)"
-					onkeypress="return !(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57))"
+					(keypress)="!($event.charCode > 31 && ($event.charCode < 48 || $event.charCode > 57))"
 					required [(ngModel)]="cc"/>
 
 				<div style="color: grey; font-size: 12px;" class="form-margin">We'll never share your payment details with anyone else.</div>

@@ -47,3 +47,12 @@ Package Manager: npm 9.6.3
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
+
+## Notes
+
+`ngModelChange` is not explicitly used because there is no necessity for additional change event for the requirement of this application.
+
+Besides, 
+
+* DOM event (change) has not been used
+* In my understanding, e.g. `[(ngModel)]="fullName"` used is implicitly interpreted by Angular as `[ngModel]="email" (ngModelChange)="fullName = $event"`. This is the shorthand method for a combination of component property binding and event binding.

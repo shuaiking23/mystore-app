@@ -22,4 +22,8 @@ export class ProductListComponent implements OnInit {
                 error: (err) => console.log(err)
         });
     }
+
+    addProduct(product: Product){
+        this.productService.addToCart(product);
+    }
 }
